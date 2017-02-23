@@ -36,6 +36,17 @@ public class NashornTest {
     }
 
     @Test
+    public void demo() throws ScriptException {
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+        String jsSource = "var message = 'Hello, World!';\n" +
+                "var iterations = 2 * 3 - 1;\n" +
+                "for (var i=0;i<iterations;i++) {\n" +
+                "  print(i + ': ' + message);\n" +
+                "}";
+        engine.eval(jsSource);
+    }
+
+    @Test
     public void test_print() throws ScriptException {
         ScriptObjectMirror output = (ScriptObjectMirror) engine.eval("print('Hello, World!');\n" +
                 "var param = { test: true, alert: 'it works' };\n" +
