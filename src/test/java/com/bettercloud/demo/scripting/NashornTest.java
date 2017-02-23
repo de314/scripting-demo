@@ -2,6 +2,7 @@ package com.bettercloud.demo.scripting;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
@@ -16,6 +17,11 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.script.SimpleBindings;
 import javax.script.SimpleScriptContext;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.net.URI;
+import java.net.URL;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -44,6 +50,15 @@ public class NashornTest {
                 "  print(i + ': ' + message);\n" +
                 "}";
         engine.eval(jsSource);
+    }
+
+    @Test
+    public void demo_file() throws FileNotFoundException, ScriptException, JsonProcessingException {
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+        URL resource = this.getClass().getClassLoader().getResource("test.js");
+        Bindings bindings = new SimpleBindings();
+        engine.eval(new FileReader(resource.getFile()), bindings);
+        System.out.println(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(bindings));
     }
 
     @Test

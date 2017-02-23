@@ -6,7 +6,7 @@ Nashorn javascript is based on ECMAScript 5.1 but future versions of nashorn wil
 
 ## Executing Raw JavaScript
 
-```
+```java
 ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
 String jsSource = "var message = 'Hello, World!';    \n" +
                   "var iterations = 2 * 3 - 1;       \n" +
@@ -20,9 +20,24 @@ engine.eval(jsSource);
 
 Javascript code can either be evaluated directly by passing javascript code as a string as shown above. Or you can pass a file reader pointing to your .js script file:
 
-````
+**src/main/resources/test.js**
+```javascript
+var message = "Hello, World!";
+
+for (var i=0;i<10;i++) {
+    print(message);
+}
+
+this.output = { complete: true };
+``` |
+
+**src/main/java/Main.java**
+```java
 ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
-engine.eval(new FileReader("script.js"));
+URL resource = this.getClass().getClassLoader().getResource("test.js");
+Bindings bindings = new SimpleBindings();
+engine.eval(new FileReader(resource.getFile()), bindings);
+System.out.println(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(bindings));
 ```
 
 # Running
