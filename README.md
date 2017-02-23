@@ -1,5 +1,11 @@
 # Summary
 
+Nashorn javascript is based on ECMAScript 5.1 but future versions of nashorn will include support for ECMAScript 6:
+
+> The current strategy for Nashorn is to follow the ECMAScript specification. When we release with JDK 8 we will be aligned with ECMAScript 5.1. The follow up major release of Nashorn will align with ECMAScript Edition 6.
+
+## Executing Raw JavaScript
+
 ```
 ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
 String jsSource = "var message = 'Hello, World!';    \n" +
@@ -8,6 +14,15 @@ String jsSource = "var message = 'Hello, World!';    \n" +
                   "  print(i + ': ' + message);      \n" +
                   "}";
 engine.eval(jsSource);
+```
+
+## Executing from a file
+
+Javascript code can either be evaluated directly by passing javascript code as a string as shown above. Or you can pass a file reader pointing to your .js script file:
+
+````
+ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+engine.eval(new FileReader("script.js"));
 ```
 
 # Running
