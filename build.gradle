@@ -28,5 +28,9 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.projectlombok:lombok')
+	compile group: 'com.google.guava', name: 'guava', version: '19.0'
+	compile group: 'org.javatuples', name: 'javatuples', version: '1.2'
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
