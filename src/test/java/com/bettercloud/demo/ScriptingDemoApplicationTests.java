@@ -1,4 +1,4 @@
-package com.bettercloud.demo.scripting;
+package com.bettercloud.demo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
