@@ -5,26 +5,26 @@ import com.bettercloud.demo.scripting.BindingsMapper;
 import com.bettercloud.demo.scripting.ScriptExecutionEnvironment;
 import com.bettercloud.demo.scripting.ScriptingService;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.script.*;
+import javax.script.Compilable;
+import javax.script.CompiledScript;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import java.util.UUID;
 
 @Service
 public class NashornScriptingService implements ScriptingService {
 
-    private final ObjectMapper jsonObjectMapper;
     private final BindingsMapper bindingsMapper;
     private final ScriptEngine engine;
     private final Compilable compilable;
 
-    public NashornScriptingService(ObjectMapper jsonObjectMapper, BindingsMapper bindingsMapper) {
-        this.jsonObjectMapper = jsonObjectMapper;
+    public NashornScriptingService(BindingsMapper bindingsMapper) {
         this.bindingsMapper = bindingsMapper;
         this.engine = new ScriptEngineManager().getEngineByName("nashorn");
         this.compilable = (Compilable) engine;
