@@ -1,4 +1,4 @@
-package com.bettercloud.demo.scripting;
+package com.bettercloud.lib.context;
 
 public enum ScriptLogLevel {
 

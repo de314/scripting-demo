@@ -1,9 +1,9 @@
-package com.bettercloud.demo.scripting.impl;
+package com.bettercloud.lib.impl;
 
-import com.bettercloud.demo.scripting.BasicMapBindings;
-import com.bettercloud.demo.scripting.BindingsMapper;
-import com.bettercloud.demo.scripting.ScriptExecutionEnvironment;
-import com.bettercloud.demo.scripting.ScriptingService;
+import com.bettercloud.lib.BasicJsonMapBindings;
+import com.bettercloud.lib.BindingsMapper;
+import com.bettercloud.lib.ScriptingService;
+import com.bettercloud.lib.context.ScriptEnvironmentContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.Builder;
@@ -31,14 +31,14 @@ public class NashornScriptingService implements ScriptingService {
     }
 
     @Override
-    public JsonNode process(String src, JsonNode input, ScriptExecutionEnvironment env) {
+    public JsonNode process(String src, JsonNode input, ScriptEnvironmentContext env) {
         boolean failed = false;
 
         // TODO: check for verbose stats
         long startTime = System.currentTimeMillis();
         long inputWeight = input.toString().length();
         Timer prepInputTimer = new Timer();
-        BasicMapBindings bindings = bindingsMapper.to(input, env);
+        BasicJsonMapBindings bindings = bindingsMapper.to(input, env);
         prepInputTimer.stop();
 
         Timer compilationTimer = new Timer();
@@ -80,7 +80,7 @@ public class NashornScriptingService implements ScriptingService {
     }
 
     @Override
-    public JsonNode process(UUID scriptId, JsonNode input, ScriptExecutionEnvironment env) {
+    public JsonNode process(UUID scriptId, JsonNode input, ScriptEnvironmentContext env) {
         return null;
     }
 

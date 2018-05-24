@@ -1,6 +1,6 @@
-package com.bettercloud.demo.scripting.impl;
+package com.bettercloud.lib.plugins;
 
-import com.bettercloud.demo.scripting.ScriptLogLevel;
+import com.bettercloud.lib.context.ScriptLogLevel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import lombok.Getter;

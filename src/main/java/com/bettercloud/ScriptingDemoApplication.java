@@ -1,14 +1,15 @@
-package com.bettercloud.demo;
+package com.bettercloud;
 
-import com.bettercloud.demo.scripting.ScriptExecutionEnvironment;
-import com.bettercloud.demo.scripting.ScriptingService;
+import com.bettercloud.lib.context.ScriptEnvironmentContext;
+import com.bettercloud.lib.context.ScriptExecutionEnvironment;
+import com.bettercloud.lib.ScriptingService;
+import com.bettercloud.lib.context.ScriptLogLevel;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,10 @@ public class ScriptingDemoApplication {
 		return scriptingService.process(
 				src,
 				jsonObjectMapper.createObjectNode(),
-				ScriptExecutionEnvironment.DEVELOPMENT
+                ScriptEnvironmentContext.builder()
+                        .minLoggingLevel(ScriptLogLevel.TRACE)
+                        .exeEnvironment(ScriptExecutionEnvironment.DEVELOPMENT)
+                        .build()
 		);
 	}
 
@@ -43,7 +47,10 @@ public class ScriptingDemoApplication {
 		return scriptingService.process(
 				scriptingTest.path("src").asText("errors.record('MISSING SRC')"),
 				scriptingTest.path("input"),
-				ScriptExecutionEnvironment.DEVELOPMENT
+                ScriptEnvironmentContext.builder()
+                        .minLoggingLevel(ScriptLogLevel.TRACE)
+                        .exeEnvironment(ScriptExecutionEnvironment.DEVELOPMENT)
+                        .build()
 		);
 	}
 }
